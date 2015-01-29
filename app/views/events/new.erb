@@ -1,0 +1,22 @@
+<div class="page-header">
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation"><a href="/">Home</a></li>
+    <li role="presentation" class="active"><a href="/events/new">Make Event</a></li>
+    <li role="presentation"><a href="/events/details">Event Status</a></li>
+    <li role="presentation"><a href="/logout">Log Out</a></li>
+  </ul>
+</div>
+
+<div class="container">
+<!--will use a diff class for form later -->
+  <form class="form-signin">
+   <!--method="POST" action="/login"-->
+    <h2>Give your event a name</h2>
+    <label for="eventname" class="sr-only">Event Name</label>
+    <input type="text" name="eventname" value="" class="form-control" placeholder="Event Name... e.g. Party at Emily's or Galina's!!">
+    <br>
+    <h2>Set a Time</h2>
+    <p> insert drop down menu here </p>
+    <a class="btn btn-lg btn-primary btn-block" href="/events/[:event_id]/venues"> Continue </a>
+  </form>
+</div>

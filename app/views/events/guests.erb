@@ -1,0 +1,20 @@
+<div class="page-header">
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation"><a href="/">Home</a></li>
+    <li role="presentation" class="active"><a href="#">Make Event</a></li>
+    <li role="presentation"><a href="/events/details">Event Status</a></li>
+    <li role="presentation"><a href="/logout">Log Out</a></li>
+  </ul>
+</div>
+
+<div class = "container">
+    <h2>Add Guests</h2>
+    <!--will use a diff class for form later -->
+    <form class="form-signin">
+    <label for="guestname" class="sr-only">Guest Name</label>
+    <input type="text" name="guestname" value="" class="form-control" placeholder="Name" required autofocus>
+    <label for="guestphone" class="sr-only">Guest Number</label>
+    <input type="text" name="guestphone" value="" class="form-control" placeholder="Phone Number" required autofocus>
+    <br>
+    <a class="btn btn-lg btn-primary btn-block" href="/events/[:event_id]/confirmation"> Add Guests &#x26; Continue </a>
+</div>
