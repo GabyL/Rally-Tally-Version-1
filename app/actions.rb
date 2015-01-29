@@ -18,14 +18,14 @@ end
 
 post '/events/new' do # => 'continue planning' button on pg2
   @event = Event.create(
-    user_id: current_user.id,
+    # user_id: current_user.id,
     title: params[:title],
     time: params[:time]
     )
   redirect "/events/#{@event.id}/venues" # => go to pg3
 end
 
-get '/events/[:event_id]/venues' do # => display pg3. Will have a link to pg4.
+get '/events/:event_id/venues' do |event_id|# => display pg3. Will have a link to pg4.
   erb:'events/venues'
 end
 
