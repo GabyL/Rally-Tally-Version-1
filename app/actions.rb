@@ -25,17 +25,18 @@ post '/events/new' do # => 'continue planning' button on pg2
   redirect "/events/#{@event.id}/venues" # => go to pg3
 end
 
-get '/events/:event_id/venues' do |event_id|# => display pg3. Will have a link to pg4.
+get '/events/:event_id/venues' do |event_id|
+  @event_id = event_id# => display pg3. Will have a link to pg4.
   erb:'events/venues'
 end
 
-post '/events/[:event_id]/venues' do # => "add venue" button on pg3
+post '/events/venues' do # => "add venue" button on pg3
   Venue.create(
     event_id: params[:event_id],
     name: params[:name]
     )
   @venues = Venue.where(event_id: params[:event_id])
-  redirect "/events/[:event_id]/venues" # => refreshes page
+  redirect "/events/#{params[:event_id]}/venues" # => refreshes page
 end
 
 get '/events/[:event_id]/guests' do # => display pg4. 
