@@ -13,7 +13,7 @@ end
 
 
 get '/events/new' do #   display pg2
-  erb: 'events/new'
+  erb:'events/new'
 end
 
 post '/events/new' do # => 'continue planning' button on pg2
@@ -26,7 +26,7 @@ post '/events/new' do # => 'continue planning' button on pg2
 end
 
 get '/events/[:event_id]/venues' do # => display pg3. Will have a link to pg4.
-  erb: 'events/venues'
+  erb:'events/venues'
 end
 
 post '/events/[:event_id]/venues' do # => "add venue" button on pg3
@@ -39,7 +39,7 @@ post '/events/[:event_id]/venues' do # => "add venue" button on pg3
 end
 
 get '/events/[:event_id]/guests' do # => display pg4. 
-  erb: 'events/guests'
+  erb:'events/guests'
 end
 
 post '/events/[:event_id]/guests' do # => "add guest" button on pg4
@@ -58,11 +58,11 @@ post '/events/[:event_id]/confirmation' do # => "send invites" button on pg4.
 end
 
 get '/events/[:event_id]/confirmation' do # => display pg5. Haslink to /events/[:event_id]
-  erb: 'events/confirmation'
+  erb:'events/confirmation'
 end
 
 get '/events/[:event_id]' do # => display pg6. Details of event including vote count.
   @event = Event.find(params[:id])
-  erb :'events/detail'
+  erb:'events/detail'
 end
 
