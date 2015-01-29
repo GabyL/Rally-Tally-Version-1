@@ -9,21 +9,28 @@
 
 <div class="container">
 <!--will use a diff class for form later -->
-  <form class="form-signin">
-   <!--method="POST" action="/login"-->
-    <h2>Add Venues Placeholder</h2>
-    <label for="venue1" class="sr-only">Venue 1</label>
-    <input type="text" name="venue 1" value="" class="form-control" placeholder="Venue 1" required autofocus>
+
+<p>The Event title is: <%= @event.title %></p>
+<p>The Event ID is: <%= @event.id %></p>
+
+
+<% if @venues != nil %>
+  <% @venues.each do |venue| %>
+    <div>
+    <%= venue.name %>
+    </div>
+  <% end %>
+<% end %>
+
+<form method="post" action="/events/venues">
+  <input type="text" name="name" value="" class="form-control" placeholder="Venue..." required autofocus>
     <br>
-    <label for="venue2" class="sr-only">Venue 2</label>
-    <input type="text" name="venue 2" value="" class="form-control" placeholder="Venue 2" required autofocus>
-    <br>
-    <label for="venue3" class="sr-only">Venue 3</label>
-    <input type="text" name="venue 3" value="" class="form-control" placeholder="Venue 3" required autofocus>
-    <br>
-    <label for="venue4" class="sr-only">Venue 4</label>
-    <input type="text" name="venue 4" value="" class="form-control" placeholder="Venue 4" required autofocus>
-    <br>
-    <a class="btn btn-lg btn-primary btn-block" href="/events/[:event_id]/guests"> Add Venues &#x26; Continue</a>
-  </form>
+
+  <input type="hidden" name="event_id" value=<%= @event.id %>>
+  <input class="btn btn-default" type="submit" value="Add Venue">
+</form>
+
+
+<a class="btn btn-lg btn-primary btn-block" href="/events/<%= @event.id %>/guests"> Continue</a>
+
 </div>
