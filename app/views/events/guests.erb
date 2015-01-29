@@ -8,13 +8,32 @@
 </div>
 
 <div class = "container">
-    <h2>Add Guests</h2>
-    <!--will use a diff class for form later -->
-    <form class="form-signin">
-    <label for="guestname" class="sr-only">Guest Name</label>
-    <input type="text" name="guestname" value="" class="form-control" placeholder="Name" required autofocus>
-    <label for="guestphone" class="sr-only">Guest Number</label>
-    <input type="text" name="guestphone" value="" class="form-control" placeholder="Phone Number" required autofocus>
+    <h2>Guests</h2>
+
+    <% if @guests != nil %>
+      <% @guests.each do |guest| %>
+        <div>
+        <em><%= guest.name %>:</em> <%= guest.phone %>
+        </div>
+      <% end %>
+    <% end %>
+
+
+    <form method="post" action="/events/guests">
+    
+    <label for="name" class="sr-only">Guest Name</label>
+    
+    <input type="text" name="name" value="" class="form-control" placeholder="Name" required autofocus>
+    
+    <label for="phone" class="sr-only">Guest Number</label>
+    
+    <input type="text" name="phone" value="" class="form-control" placeholder="Phone Number" required autofocus>
+    
+    <input type="hidden" name="event_id" value=<%= @event.id %>>
+
+    <input class="btn btn-default" type="submit" value="Add Guest">
+
+
     <br>
-    <a class="btn btn-lg btn-primary btn-block" href="/events/[:event_id]/confirmation"> Add Guests &#x26; Continue </a>
+    <a class="btn btn-lg btn-primary btn-block" href="/events/<%= @event.id %>/confirmation">Finish</a>
 </div>
