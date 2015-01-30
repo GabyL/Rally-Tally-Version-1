@@ -1,3 +1,5 @@
+require 'twilio-ruby'
+
 helpers do
   
   def current_user
@@ -73,10 +75,36 @@ get '/events/:event_id/confirmation' do # => display pg5. Haslink to /events/[:e
   erb :'events/confirmation'
 end
 
-post '/events/:event_id/confirmation' do # => "send invites" button on pg4.
+post '/events/confirmation' do # => "send invites" button on pg4.
   #######Twilio action!!!! Send out invites
+  @event = Event.where(id: params[:event_id]).first
+
+  account_sid = "AC6f371839daf109a9f0faf1fd39e444f9"
+  auth_token = "518b385875c00eee24ef68ee70ac67e5"
+  client = Twilio::REST::Client.new account_sid, auth_token
+
+  from = "+16043371550"
+
+  message_body = ""
+  location_count = 0
+
+  @event.venues.each do |venue|
+    location_count += 1
+    message_body += "#{location_count}) #{venue.name} "
+  end
+
+  @event.guests.each do |guest|
+    client.account.messages.create(
+      :from => from, 
+      :to => guest.phone, 
+      :body => "Hey #{guest.name}, you've been invited to #{@event.title}! Please vote for a location: #{message_body}"
+    )
+  end
+
   redirect "/events/#{params[:event_id]}/confirmation" # => go to pg5
 end
+
+
 
 # ----------------------- #
 ### Go to event details page
@@ -85,4 +113,6 @@ get '/events/:event_id' do # => display pg6. Details of event including vote cou
   @event = Event.where(id: params[:event_id]).first
   erb :'events/details'
 end
+
+
 

@@ -21,19 +21,26 @@
 
     <form method="post" action="/events/guests">
     
-    <label for="name" class="sr-only">Guest Name</label>
-    
-    <input type="text" name="name" value="" class="form-control" placeholder="Name" required autofocus>
-    
-    <label for="phone" class="sr-only">Guest Number</label>
-    
-    <input type="text" name="phone" value="" class="form-control" placeholder="Phone Number" required autofocus>
-    
-    <input type="hidden" name="event_id" value=<%= @event.id %>>
+        <label for="name" class="sr-only">Guest Name</label>
+        
+        <input type="text" name="name" value="" class="form-control" placeholder="Name" required autofocus>
+        
+        <label for="phone" class="sr-only">Guest Number</label>
+        
+        <input type="text" name="phone" value="" class="form-control" placeholder="Phone Number" required autofocus>
+        
+        <input type="hidden" name="event_id" value=<%= @event.id %>>
 
-    <input class="btn btn-default" type="submit" value="Add Guest">
+        <input class="btn btn-default" type="submit" value="Add Guest">
 
+    </form>
+    
+    <br><br>
 
-    <br>
-    <a class="btn btn-lg btn-primary btn-block" href="/events/<%= @event.id %>/confirmation">Finish</a>
+    <p>Event ID: <%= @event.id %></p>
+
+    <form method="post" action="/events/confirmation">
+        <input type="hidden" name="event_id" value=<%= @event.id %>>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Finalize!">
+    </form>
 </div>
