@@ -2,8 +2,20 @@ require 'rake'
 require "sinatra/activerecord/rake"
 require ::File.expand_path('../config/environment', __FILE__)
 
+
 Rake::Task["db:create"].clear
 Rake::Task["db:drop"].clear
+
+
+desc "check time at 10min intervals"
+task "check:time" do
+  puts "hello"
+
+
+
+end
+
+
 
 # NOTE: Assumes SQLite3 DB
 desc "create the database"
