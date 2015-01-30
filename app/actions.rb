@@ -143,15 +143,15 @@ get '/sms-quickstart' do
   Vote.create(event_id: event.id, guest_id: guest.id, venue_id: venue.id)
 
   twiml = Twilio::TwiML::Response.new do |r|
-    # if /\d/.match(body)
-      # if body <= event.venues.count
+    if /\d/.match(body)
+      if body <= event.venues.count
         r.Message "You have selected #{venue.name} from #{from} This has been added to the votes."
-      #else
-        # r.Message "You have selected #{body}. This is not a choice, please select one from the list above."
-        #end
-    # else
-      # r.Message "please send a number such as '0' to decline the invites"
-    # end
+      else
+        r.Message "You have selected #{body}. This is not a choice, please select one from the list above."
+        end
+    else
+      r.Message "please send a number such as '0' to decline the invites"
+    end
   end
   twiml.text # => actually sends out text to recipient
 end
