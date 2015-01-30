@@ -122,33 +122,33 @@ get '/sms-quickstart' do
   from = params['From']
 
   guest = Guest.where(phone: from).last
-  event = Event.where(id: guest.event_id).first
+  # event = Event.where(id: guest.event_id).first
 
-  int_reply = body[/\d/].to_i
+  # int_reply = body[/\d/].to_i
 
-  venue_index = 0
-  venue_array = []
+  # venue_index = 0
+  # venue_array = []
 
-  event.venues.each do |venue|
-    venue_index += 1
-    venue_array << [venue, venue_index]
-  end
+  # event.venues.each do |venue|
+  #   venue_index += 1
+  #   venue_array << [venue, venue_index]
+  # end
 
-  venue_array.each do |temp_venue|
-    if temp_venue[1] == int_reply
-      venue = temp_venue[0]
-    end
-  end
+  # venue_array.each do |temp_venue|
+  #   if temp_venue[1] == int_reply
+  #     venue = temp_venue[0]
+  #   end
+  # end
 
-  Vote.create(event_id: event.id, guest_id: guest.id, venue_id: venue.id)
+  # Vote.create(event_id: event.id, guest_id: guest.id, venue_id: venue.id)
 
   twiml = Twilio::TwiML::Response.new do |r|
     if /\d/.match(body)
-      if body <= event.venues.count
-        r.Message "You have selected #{venue.name} from #{from} This has been added to the votes."
-      else
-        r.Message "You have selected #{body}. This is not a choice, please select one from the list above."
-        end
+      # if body <= event.venues.count
+        r.Message "Hi, #{guest.name}!. You have selected #{body} from #{from} This has been added to the votes."
+      # else
+        # r.Message "You have selected #{body}. This is not a choice, please select one from the list above."
+        # end
     else
       r.Message "please send a number such as '0' to decline the invites"
     end
