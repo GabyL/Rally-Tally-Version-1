@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20150129004947) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "events", force: true do |t|
     t.integer  "user_id"
     t.string   "title"
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150129004947) do
     t.datetime "updated_at"
   end
 
-  add_index "events", ["user_id"], name: "index_events_on_user_id"
+  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
 
   create_table "guests", force: true do |t|
     t.integer  "event_id"
@@ -30,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150129004947) do
     t.datetime "updated_at"
   end
 
-  add_index "guests", ["event_id"], name: "index_guests_on_event_id"
+  add_index "guests", ["event_id"], name: "index_guests_on_event_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "firstname"
@@ -50,7 +53,7 @@ ActiveRecord::Schema.define(version: 20150129004947) do
     t.string  "url"
   end
 
-  add_index "venues", ["event_id"], name: "index_venues_on_event_id"
+  add_index "venues", ["event_id"], name: "index_venues_on_event_id", using: :btree
 
   create_table "votes", force: true do |t|
     t.integer  "event_id"
@@ -60,8 +63,8 @@ ActiveRecord::Schema.define(version: 20150129004947) do
     t.datetime "updated_at"
   end
 
-  add_index "votes", ["event_id"], name: "index_votes_on_event_id"
-  add_index "votes", ["guest_id"], name: "index_votes_on_guest_id"
-  add_index "votes", ["venue_id"], name: "index_votes_on_venue_id"
+  add_index "votes", ["event_id"], name: "index_votes_on_event_id", using: :btree
+  add_index "votes", ["guest_id"], name: "index_votes_on_guest_id", using: :btree
+  add_index "votes", ["venue_id"], name: "index_votes_on_venue_id", using: :btree
 
 end

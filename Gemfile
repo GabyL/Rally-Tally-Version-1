@@ -11,10 +11,9 @@ gem 'sinatra-activerecord'
 gem 'puma'
 gem 'tux'
 gem 'twilio-ruby'
-
+gem 'pg'
 
 group :development, :test do
   gem 'pry'
   gem 'shotgun'
-  gem 'sqlite3'
 end
