@@ -88,7 +88,7 @@ post '/events/confirmation' do # => "send invites" button on pg4.
   message_body = ""
   location_count = 0
 
-  @event.venues.each do |venue|
+  @event.venues.reverse.each do |venue|
     location_count += 1
     message_body += "#{location_count}) #{venue.name} "
   end
@@ -122,33 +122,46 @@ get '/sms-quickstart' do
   from = params['From']
 
   guest = Guest.where(phone: from).last
+  event = Event.find(guest.event_id)
   # event = Event.where(id: guest.event_id).first
 
-  # int_reply = body[/\d/].to_i
+  if /\d/.match(body)
+    int_reply = body[/\d/].to_i
 
-  # venue_index = 0
-  # venue_array = []
+    if (int_reply <= event.venues.count) && (int_reply != 0)
 
-  # event.venues.each do |venue|
-  #   venue_index += 1
-  #   venue_array << [venue, venue_index]
-  # end
+      venue_index = 0
+      venue_array = []
 
-  # venue_array.each do |temp_venue|
-  #   if temp_venue[1] == int_reply
-  #     venue = temp_venue[0]
-  #   end
-  # end
+      event.venues.reverse.each do |venue|
+        venue_index += 1
+        venue_array << [venue, venue_index]
+      end
 
-  # Vote.create(event_id: event.id, guest_id: guest.id, venue_id: venue.id)
+
+      venue_array.each do |temp_venue|
+        if temp_venue[1] == int_reply
+          @venue = temp_venue[0]
+        end
+      end
+
+      Vote.create(event_id: event.id, guest_id: guest.id, venue_id: @venue.id)
+
+    elsif int_reply == 0
+      Vote.create(event_id: event.id, guest_id: guest.id, venue_id: 0)
+
+    end
+  end
 
   twiml = Twilio::TwiML::Response.new do |r|
     if /\d/.match(body)
-      # if body <= event.venues.count
-        r.Message "Hi, #{guest.name}!. You have selected #{body} from #{from} This has been added to the votes."
-      # else
-        # r.Message "You have selected #{body}. This is not a choice, please select one from the list above."
-        # end
+      if (body.to_i <= event.venues.count) && (body.to_i != 0)
+        r.Message "Hi, #{guest.name}!. Event id: #{event.id} #{event.title}. You have selected #{@venue.name} from #{from} This has been added to the votes."
+      elsif body.to_i == 0
+        r.Message "Hi #{guest.name}! We are sad you can't join us. Thanks for the reply!"
+      else
+        r.Message "You have selected #{body}. This is not a choice, please select one from the list above."
+        end
     else
       r.Message "please send a number such as '0' to decline the invites"
     end
