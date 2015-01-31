@@ -6,7 +6,14 @@ helpers do
     @current_user = User.find(session[:user_id])
     # for now, will be a dummy user for demo purposes
   end
+
+  def active_page(path)
+    if path == request.path_info
+      return 'active'
+    end
+  end
 end
+
 #------------------
 
 get '/' do # => display pg1. will link to pg2.

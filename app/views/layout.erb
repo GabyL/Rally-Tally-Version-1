@@ -16,6 +16,24 @@
 
   <title></title>
 </head>
+
+<body>
+
+
+<div class="page-header">
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class ="<%= active_page('/') %>"><a href="/">Home</a></li>
+    <li role="presentation" class ="<%= active_page('/events/new') %>"><a href="/events/new">Make Event</a></li>
+    <li role="presentation" class ="<%= active_page('/events/details') %>"><a href="/events/details">Event Status</a></li>
+    <li role="presentation" class ="<%= active_page('/logout') %>"><a href="/logout">Log Out</a></li>
+  </ul>
+</div>
+
+
+
+
+
+
 <body background="http://i.imgur.com/MSYtz2T.jpg">
   <%= yield %>
 </body>
