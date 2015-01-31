@@ -10,34 +10,21 @@ class Event < ActiveRecord::Base
 
 
   def self.check_time
-    # if time.now < 60 minutes before event.time
-    #   then 
-    #   twilio text that includes Venue where MAX(COUNT(vote))
-    # end
+
     @upcoming_events = Event.where(time: 60.minutes.ago..Time.now )
     @upcoming_events.each do |event|
-      if event.venue == winning_venue
-        twilio_send_text
+      event.venues.each do |venue|
+        @winning_venue ||= venue 
+        if venue.votes.count > @winning_venue.votes.count        
+          @winning_venue = venue 
+        end
       end
+      twilio_send_text(@winning_venue)
     end
   end
 
 
-
-  def winning_venue
-    all_votes = Vote.where(event_id: id)
-
-    all_votes.pluck(venue_id).group(venue_id).order('venue_id.count DESC')
-
-    # SELECT venue_id
-    # FROM votes
-    # WHERE event_id = id
-    # GROUP BY venue_id
-    # ORDER BY COUNT(venue_id) DESC;
-  end
-
-
-  def twilio_send_text
+  def twilio_send_text(winning_venue)
     account_sid = "AC6f371839daf109a9f0faf1fd39e444f9"
     auth_token = "518b385875c00eee24ef68ee70ac67e5"
     client = Twilio::REST::Client.new account_sid, auth_token
@@ -60,6 +47,7 @@ class Event < ActiveRecord::Base
       )
     end
   end
+  
 end
 
 

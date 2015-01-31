@@ -24,7 +24,8 @@ post '/events/new' do # => 'continue planning' button on pg2
   @event = Event.create(
     # user_id: current_user.id,
     title: params[:title],
-    time: params[:time]
+    # time: params[:time]
+    time: Time.now
     )
   redirect "/events/#{@event.id}/venues" # => go to pg3
 end
