@@ -11,7 +11,7 @@
     <h2>Guests</h2>
 
     <% if @guests != nil %>
-      <% @guests.each do |guest| %>
+      <% @guests.reverse.each do |guest| %>
         <div>
         <em><%= guest.name %>:</em> <%= guest.phone %>
         </div>
@@ -39,8 +39,10 @@
 
     <p>Event ID: <%= @event.id %></p>
 
-    <form method="post" action="/events/confirmation">
-        <input type="hidden" name="event_id" value=<%= @event.id %>>
-        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Finalize!">
-    </form>
+    <% if @guests.count > 0 %> 
+        <form method="post" action="/events/confirmation">
+            <input type="hidden" name="event_id" value=<%= @event.id %>>
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Finalize!">
+        </form>
+    <% end %>
 </div>
