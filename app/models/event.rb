@@ -9,22 +9,44 @@ class Event < ActiveRecord::Base
   has_many :votes
 
 
-  def self.check_time
 
-    @upcoming_events = Event.where(time: 60.minutes.ago..Time.now )
-    @upcoming_events.each do |event|
-      event.venues.each do |venue|
-        @winning_venue ||= venue 
-        if venue.votes.count > @winning_venue.votes.count        
-          @winning_venue = venue 
+  def self.check_votes
+    # if guest.decline == false then send below
+    events = Event.where(sent_text: false)
+    events.each do |event|
+      if event.votes.count == event.guests.count
+        event.venues.each do |venue|
+          @winning_venue ||= venue 
+          if venue.votes.count > @winning_venue.votes.count        
+            @winning_venue = venue 
+          end
         end
+        event.twilio_send_text(event, @winning_venue)
+        event.sent_text = true
+        event.save
       end
-      event.twilio_send_text(@winning_venue)
+    end
+  end
+
+  def self.check_time
+    upcoming_events = Event.where(time: 90.minutes.ago..Time.now )
+    upcoming_events.each do |event|
+      if event.sent_text == false
+        event.venues.each do |venue|
+          @winning_venue ||= venue 
+          if venue.votes.count > @winning_venue.votes.count        
+            @winning_venue = venue 
+          end
+        end
+        event.twilio_send_text(event, @winning_venue)
+        event.sent_text = true
+        event.save
+      end
     end
   end
 
 
-  def twilio_send_text(winning_venue)
+  def twilio_send_text(event, winning_venue)
     account_sid = "AC6f371839daf109a9f0faf1fd39e444f9"
     auth_token = "518b385875c00eee24ef68ee70ac67e5"
     client = Twilio::REST::Client.new account_sid, auth_token
@@ -39,11 +61,11 @@ class Event < ActiveRecord::Base
     #   message_body += "#{location_count}) #{venue.name} "
     # end
 
-    guests.each do |guest|
+    event.guests.each do |guest|
       client.account.messages.create(
         :from => from, 
         :to => guest.phone, 
-        :body => "Hey #{guest.name}, the finalized venue for #{title} is #{winning_venue.name}. See you at #{time}!"
+        :body => "Hey #{guest.name}, the finalized venue for #{event.title} is #{winning_venue.name}. See you at #{event.time}!"
       )
     end
   end

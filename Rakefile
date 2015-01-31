@@ -9,8 +9,12 @@ Rake::Task["db:drop"].clear
 
 desc "check time at 10min intervals"
 task "check:time" do
-  # puts "hello"
   Event.check_time
+end
+
+desc "check vote count at 10min intervals"
+task "check:votes" do
+  Event.check_votes
 end
 
 
