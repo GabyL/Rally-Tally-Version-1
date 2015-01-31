@@ -19,7 +19,7 @@ class Event < ActiveRecord::Base
           @winning_venue = venue 
         end
       end
-      twilio_send_text(@winning_venue)
+      event.twilio_send_text(@winning_venue)
     end
   end
 
