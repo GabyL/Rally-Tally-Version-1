@@ -1,14 +1,14 @@
 
 <!--will use a diff class for form later -->
-<form class="form-signin" method="post" action="/events/new">
+<form class method="post" action="/events/new">
  <!--method="POST" action="/login"-->
- <h1> STEP 1:</h1>
- <div class='transparento'>
+  <div id='move_h1'><h1> STEP 1:</h1></div>
+  <div class='transparento boxbox'>
     <h2>Give your event a name</h2>
     <label for="name" class="sr-only">Event Name</label>
-    <input type="text" name="title" value="" class="form-control" placeholder="Event Name... e.g. Party at Emily's or Galina's!!">
+    <input type="text" name="title" value="" class="form-control" placeholder="Event Name... e.g. Party at Emily's!" require autofocus>
     <br>
-    <h2>Set a Time</h2>
+    <h2>Event Time</h2>
     <div>
        <select name="hour">
           <option>Hour</option>
@@ -37,7 +37,8 @@
           <option name="am_pm" value="12">PM</option>
        </select>
     </div>
-  <input class="btn btn-lg btn-success" type="submit" value="Continue">
+    <br>
+  <input class="btn btn-lg btn-success stay-right" type="submit" value="Continue">
 <!--     <a class="btn btn-lg btn-primary btn-block" href="/events/[:event_id]/venues"> Continue </a> -->
   </div>
 </form>
