@@ -11,6 +11,11 @@
   max-width: 700px;
 }
 
+.transparento2 {
+  margin: 30px;
+  background-color:rgba(255,255,255,.7);
+  border-radius: 5px;
+}
 .transparento p {
   padding: 5px;
 }
@@ -26,8 +31,18 @@
   margin-right: auto ;
 }
 
+.midbox {
+  width: 300px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  opacity: 0.8;
+}
+
 .venuebox {
   text-align: center;
+  font-size: 20px;
+  opacity: 0.7;
 }
 
 
