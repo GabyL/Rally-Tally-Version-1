@@ -196,6 +196,17 @@ end
 
 get '/events/:event_id' do # => display pg6. Details of event including vote count.
   @event = Event.where(id: params[:event_id]).first
+
+  @venue_counts = []
+
+  @event.venues.each do |venue|
+    @venue_counts << [venue.name, venue.votes.count]
+  end
+
+  @venue_counts.sort_by! { |venue_count| -venue_count[1] }
+
+  @decline_count = Vote.where(event_id: @event.id, venue_id: 0).count
+
   erb :'events/details'
 end
 
@@ -230,10 +241,24 @@ get '/sms-quickstart' do
         end
       end
 
-      Vote.create(event_id: event.id, guest_id: guest.id, venue_id: @venue.id)
+      existing_vote = Vote.where(event_id: event.id, guest_id: guest.id).first
+
+      if existing_vote.nil?
+        Vote.create(event_id: event.id, guest_id: guest.id, venue_id: @venue.id)
+      else
+        existing_vote.venue_id = @venue.id
+        existing_vote.save
+      end
 
     elsif int_reply == 0
-      Vote.create(event_id: event.id, guest_id: guest.id, venue_id: 0)
+      already_voted = Vote.where(event_id: event.id, guest_id: guest.id).first
+      
+      if already_voted.nil?
+        Vote.create(event_id: event.id, guest_id: guest.id, venue_id: 0)
+      else
+        already_voted.venue_id = 0
+        existing_vote.save
+      end
 
     end
   end
