@@ -65,13 +65,22 @@ post '/events/guests' do # => "add guest" button on pg4
 
   phone_number = "+1#{area_code}#{phone_first}#{phone_last}"
 
-  Guest.create(
-    event_id: params[:event_id],
-    name: params[:name],
-    phone: phone_number
-    )
+  if (/\A\+1\d{10}\Z/).match(phone_number)
+    Guest.create(
+      event_id: params[:event_id],
+      name: params[:name],
+      phone: phone_number
+      )
+  end
   # @guests = Guest.where(event_id: params[:event_id])
   redirect "/events/#{params[:event_id]}/guests" # => refreshes page
+
+  # if @guest.save
+  #   redirect '/events/#{params[:event_id]}/guests'
+  # else
+  #   :'/events/guests'
+  # end
+
 end
 
 # ----------------------- #
