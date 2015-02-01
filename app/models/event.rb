@@ -65,7 +65,7 @@ class Event < ActiveRecord::Base
       client.account.messages.create(
         :from => from, 
         :to => guest.phone, 
-        :body => "Hey #{guest.name}, the finalized venue for #{event.title} is #{winning_venue.name}. See you at #{event.time}!"
+        :body => "Hey #{guest.name}, the finalized venue for #{event.title} is #{winning_venue.name}. See you at #{event.correct_time}!"
       )
     end
   end
