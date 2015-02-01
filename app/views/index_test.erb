@@ -1,38 +1,29 @@
- <div class="site-wrapper">
 
-      <div class="site-wrapper-inner">
 
-        <div class="cover-container">
 
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand">Cover</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li class="active"><a href="#">Home</a></li>
-                  <li><a href="#">Features</a></li>
-                  <li><a href="#">Contact</a></li>
-                </ul>
-              </nav>
-            </div>
-          </div>
 
-          <div class="inner cover">
-            <h1 class="cover-heading">Cover your page.</h1>
-            <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-            <p class="lead">
-              <a href="#" class="btn btn-lg btn-default">Learn more</a>
-            </p>
-          </div>
-
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-            </div>
-          </div>
-
-        </div>
-
+<h1 class= "heading">Meet &#x26; Eat</h1>
+<% if @user %>
+  <p>Hi <%=@user.username%></p>
+<% else %>
+  <div class="container">
+  <!--have to change action below -->
+    <form class="form-signin">
+     <!--method="POST" action="/login"-->
+      <h2 class="form-signin-heading">Please sign in</h2>
+      <label for="username" class="sr-only">Email address</label>
+      <input type="email" name="username" id="inputEmail" value="<%= @user && @user.username%>" class="form-control" placeholder="Email address" required autofocus>
+      <label for="password" class="sr-only">Password</label>
+      <input type="password" name="password" value="<%= @user && @user.password%>"  id="inputPassword" class="form-control" placeholder="Password" required>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
       </div>
+      <input type ="submit" value="Sign In" class="btn btn-lg btn-primary btn-block" href="/events/new">
+      <a class="btn btn-lg btn-info btn-block" href="/events/new">Sign Up Now! But Not Really!</a>
+    </form>
+  </div>
+<%end%>
 
-    </div>
+
