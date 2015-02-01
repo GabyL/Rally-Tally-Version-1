@@ -17,7 +17,7 @@
     <h2 align="center">Add Venue for <%= @event.title %></h2>
 
     <% if @venues != nil %>
-    <% @venues.each do |venue| %>
+    <% @venues.reverse.each do |venue| %>
       <div class="venuebox">
       <li><%= venue.name %></li>
       </div>
