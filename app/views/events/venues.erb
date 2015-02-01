@@ -6,19 +6,8 @@
 
 <div class="container-fluid">
 
-  <div class="col-md-4">
-    <form class="form-signin" method="post" action="/events/venues">
-      <input type="text" name="name" value="" class="form-control" placeholder="Venue..." required autofocus>
-        <br>
-
-      <input type="hidden" name="event_id" value=<%= @event.id %>>
-      <input class="btn btn-success" type="submit" value="Add Venue">
-    </form>
-
-  </div>
-
-
-  <div class="col-md-4 transparento">
+  <div class="transparento2 midbox">
+    <h2>Add Venues</h2>
   <% if @venues != nil %>
     <% @venues.each do |venue| %>
       <div class="venuebox">
@@ -28,10 +17,23 @@
   <% end %>
   </div>
 
-  <div class="col-md-4">
-    <% if @venues.count > 0 %> 
-    <a class="btn btn-lg btn-success" href="/events/<%= @event.id %>/guests"> Continue</a>
-  <% end %>
-  </div> 
+  <div>
+    <form class="form-signin" method="post" action="/events/venues">
+      <input type="text" name="name" value="" class="form-control" placeholder="Venue..." required autofocus>
+        <br>
+
+      <input type="hidden" name="event_id" value=<%= @event.id %>>
+      <input class="btn btn-lg btn-success" type="submit" value="Add Venue">
+      <% if @venues.count > 0 %> 
+        <a class="btn btn-lg btn-success stay-right" href="/events/<%= @event.id %>/guests"> Continue</a>
+      <% end %>
+
+    </form>
+
+  </div>
+
+
+
+
 
 </div>
