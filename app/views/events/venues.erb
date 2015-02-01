@@ -4,24 +4,34 @@
 <p>The Event title is: <%= @event.title %></p>
 <p>The Event ID is: <%= @event.id %></p>
 
+<div class="container-fluid">
 
-<% if @venues != nil %>
-  <% @venues.reverse.each do |venue| %>
-    <div>
-    <%= venue.name %>
-    </div>
+  <div class="col-md-4">
+    <form class="form-signin" method="post" action="/events/venues">
+      <input type="text" name="name" value="" class="form-control" placeholder="Venue..." required autofocus>
+        <br>
+
+      <input type="hidden" name="event_id" value=<%= @event.id %>>
+      <input class="btn btn-success" type="submit" value="Add Venue">
+    </form>
+
+  </div>
+
+
+  <div class="col-md-4 transparento">
+  <% if @venues != nil %>
+    <% @venues.each do |venue| %>
+      <div class="venuebox">
+      <%= venue.name %>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+  </div>
 
-<form method="post" action="/events/venues">
-  <input type="text" name="name" value="" class="form-control" placeholder="Venue..." required autofocus>
-    <br>
+  <div class="col-md-4">
+    <% if @venues.count > 0 %> 
+    <a class="btn btn-lg btn-success" href="/events/<%= @event.id %>/guests"> Continue</a>
+  <% end %>
+  </div> 
 
-  <input type="hidden" name="event_id" value=<%= @event.id %>>
-  <input class="btn btn-default" type="submit" value="Add Venue">
-</form>
-
-<% if @venues.count > 0 %> 
-  <a class="btn btn-lg btn-primary btn-block" href="/events/<%= @event.id %>/guests"> Continue</a>
-<% end %>  
-
+</div>
