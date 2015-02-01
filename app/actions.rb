@@ -59,10 +59,16 @@ get '/events/:event_id/guests' do # => display pg4.
 end
 
 post '/events/guests' do # => "add guest" button on pg4
+  area_code = params[:area_code]
+  phone_first = params[:phone_first]
+  phone_last = params[:phone_last]
+
+  phone_number = "+1#{area_code}#{phone_first}#{phone_last}"
+
   Guest.create(
     event_id: params[:event_id],
     name: params[:name],
-    phone: params[:phone]
+    phone: phone_number
     )
   # @guests = Guest.where(event_id: params[:event_id])
   redirect "/events/#{params[:event_id]}/guests" # => refreshes page
