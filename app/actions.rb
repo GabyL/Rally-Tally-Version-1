@@ -241,10 +241,24 @@ get '/sms-quickstart' do
         end
       end
 
-      Vote.create(event_id: event.id, guest_id: guest.id, venue_id: @venue.id)
+      existing_vote = Vote.where(event_id: event.id, guest_id: guest.id).first
+
+      if existing_vote.nil?
+        Vote.create(event_id: event.id, guest_id: guest.id, venue_id: @venue.id)
+      else
+        existing_vote.venue_id = @venue.id
+        existing_vote.save
+      end
 
     elsif int_reply == 0
-      Vote.create(event_id: event.id, guest_id: guest.id, venue_id: 0)
+      already_voted = Vote.where(event_id: event.id, guest_id: guest.id).first
+      
+      if already_voted.nil?
+        Vote.create(event_id: event.id, guest_id: guest.id, venue_id: 0)
+      else
+        already_voted.venue_id = 0
+        existing_vote.save
+      end
 
     end
   end
