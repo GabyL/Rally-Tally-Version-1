@@ -18,9 +18,9 @@
       <br>
 
       <input type="hidden" name="event_id" value=<%= @event.id %>>
-      <input class="btn btn-lg btn-warning" type="submit" value="Add Venue">
+      <input class="btn btn-lg btn-warning stay-bot" type="submit" value="Add Venue">
       <% if @venues.count > 0 %> 
-        <a class="btn btn-lg btn-success stay-right" href="/events/<%= @event.id %>/guests"> Continue</a>
+        <a class="btn btn-lg btn-success stay-right stay-bot" href="/events/<%= @event.id %>/guests"> Continue</a>
       <% end %>
 
     </form>
