@@ -1,5 +1,16 @@
+  <div class="header">
+    <nav>
+      <ul class="nav nav-pills pull-right">
+    <li role="presentation" class ="<%= active_page('/') %>"><a href="/">Home</a></li>
+    <li role="presentation" class ="active"><a href="/events/new">Make Event</a></li>
+    <li role="presentation" class ="<%= active_page('/events/details') %>"><a href="/events/details">Event Status</a></li>
+      </ul>
+    </nav>
+    <a href="/"><img src="/images/rallytally.png" width="20%" height="20%"></a>
+    <br>
+  </div>
 
-<!--will use a diff class for form later -->
+<!-- Hardcoded Nav-Bar above -->
 
  <div class='transparento boxboxbox'>
     <div id='move_h1'><br><h1>STEP 2:</h1><br><hr></div>
@@ -8,7 +19,7 @@
     <% if @venues != nil %>
     <% @venues.each do |venue| %>
       <div class="venuebox">
-      <%= venue.name %>
+      <li><%= venue.name %></li>
       </div>
     <% end %>
   <% end %>

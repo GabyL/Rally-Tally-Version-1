@@ -1,3 +1,18 @@
+  <div class="header">
+    <nav>
+      <ul class="nav nav-pills pull-right">
+    <li role="presentation" class ="<%= active_page('/') %>"><a href="/">Home</a></li>
+    <li role="presentation" class ="active"><a href="/events/new">Make Event</a></li>
+    <li role="presentation" class ="<%= active_page('/events/details') %>"><a href="/events/details">Event Status</a></li>
+      </ul>
+    </nav>
+    <a href="/"><img src="/images/rallytally.png" width="20%" height="20%"></a>
+    <br>
+  </div>
+
+<!-- Hardcoded Nav-Bar above -->
+
+  
 
   <h2> Text messages have been sent to your friends. </h2>
-  <a class="btn btn-lg btn-primary btn-block" href="/events/<%= @event.id %>"> Event Details </a>
+  <a class="btn btn-lg btn-success btn-block" href="/events/<%= @event.id %>"> Event Details </a>
