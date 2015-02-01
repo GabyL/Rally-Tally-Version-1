@@ -203,11 +203,9 @@ get '/events/:event_id' do # => display pg6. Details of event including vote cou
     @venue_counts << [venue.name, venue.votes.count]
   end
 
-  @venue_counts = @venue_counts.sort_by { |venue_count| -venue_count[1] }
+  @venue_counts.sort_by! { |venue_count| -venue_count[1] }
 
-  declines = Vote.where(event_id: @event.id, venue_id: 0)
-
-  @decline_count = declines.count
+  @decline_count = Vote.where(event_id: @event.id, venue_id: 0).count
 
   erb :'events/details'
 end
