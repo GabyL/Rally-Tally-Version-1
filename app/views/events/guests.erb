@@ -1,8 +1,6 @@
 <div class="transparento2 midbox">
 <h2>Guests</h2>
 
-
-
 <% if @guests != nil %>
   <% @guests.each do |guest| %>
     <div>
@@ -22,18 +20,15 @@
     
 <!--         <input type="text" name="phone" value="" class="form-control" placeholder="Phone Number" required autofocus> -->
 
-    (<input type="text" name="area_code" value="" size="3" placeholder="604" maxlength="3">)&nbsp;
-    <input type="text" name="phone_first" value="" size="3" placeholder="555" maxlength="3">&nbsp;-&nbsp;<input type="text" name="phone_last" value="" size="4" placeholder="5555" maxlength="4">
-    
     <br>
-
-    <input type="hidden" name="event_id" value=<%= @event.id %>>
-
-    <input class="btn btn-default" type="submit" value="Add Guest">
+    <input type="text" name="area_code" value="" size="3" placeholder="604" maxlength="3" class = "size-up">&nbsp;<input type="text" name="phone_first" value="" size="3" placeholder="555" maxlength="3" class ="size-up">&nbsp;-&nbsp;<input type="text" name="phone_last" value="" size="4" placeholder="5555" maxlength="4" class="size-up">&nbsp;<input type="hidden" name="event_id" value= "<%=@event.id%>">
+    <input class="btn btn-success stay-right" type="submit" value="Add Guest">
+    <br>
+    <br>
     <% if @guests.count > 0 %> 
     <form method="post" action="/events/confirmation">
         <input type="hidden" name="event_id" value=<%= @event.id %>>
-        <input class="btn btn-lg btn-success" type="submit" value="Finalize!">
+        <input class="btn btn-lg btn-success btn-block" type="submit" value="Finalize!">
     </form>
 <% end %>
 
@@ -41,7 +36,7 @@
 
 <br><br>
 
-<p>Event ID: <%= @event.id %></p>
+<!-- <p>Event ID: <%= @event.id %></p> -->
 
 
 
