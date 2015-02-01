@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="/javascript/bootstrap.min.js"></script>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   
   <script src="/javascript/application.js"></script>
 
   <link href="/stylesheets/signin.css" rel="stylesheet">
+
 
   <link rel="stylesheet" href="/stylesheets/application.css">
 
@@ -20,21 +21,23 @@
 <body>
 
 
-<div class="page-header">
-  <ul class="nav nav-tabs" role="tablist">
+<body background="http://i.imgur.com/MSYtz2T.jpg">
+<div class="container">
+
+  <div class="header">
+    <nav>
+      <ul class="nav nav-pills pull-right">
     <li role="presentation" class ="<%= active_page('/') %>"><a href="/">Home</a></li>
     <li role="presentation" class ="<%= active_page('/events/new') %>"><a href="/events/new">Make Event</a></li>
     <li role="presentation" class ="<%= active_page('/events/details') %>"><a href="/events/details">Event Status</a></li>
-    <li role="presentation" class ="<%= active_page('/logout') %>"><a href="/logout">Log Out</a></li>
-  </ul>
-</div>
+      </ul>
+    </nav>
+    <a href="/"><img src="/images/txtmelater_tilt.png" width="20%" height="20%"></a>
+    <br>
+  </div>
 
-
-
-
-
-
-<body background="http://i.imgur.com/MSYtz2T.jpg">
   <%= yield %>
+
+</div>
 </body>
 </html>

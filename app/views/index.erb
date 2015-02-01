@@ -1,26 +1,10 @@
-
-<h1 class= "heading">Meet &#x26; Eat</h1>
-<% if @user %>
-  <p>Hi <%=@user.username%></p>
-<% else %>
-  <div class="container">
-  <!--have to change action below -->
-    <form class="form-signin">
-     <!--method="POST" action="/login"-->
-      <h2 class="form-signin-heading">Please sign in</h2>
-      <label for="username" class="sr-only">Email address</label>
-      <input type="email" name="username" id="inputEmail" value="<%= @user && @user.username%>" class="form-control" placeholder="Email address" required autofocus>
-      <label for="password" class="sr-only">Password</label>
-      <input type="password" name="password" value="<%= @user && @user.password%>"  id="inputPassword" class="form-control" placeholder="Password" required>
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <input type ="submit" value="Sign In" class="btn btn-lg btn-primary btn-block" href="/events/new">
-      <a class="btn btn-lg btn-info btn-block" href="/events/new">Sign Up Now! But Not Really!</a>
-    </form>
-  </div>
-<%end%>
-
-
+<div>
+  <center>
+    <img src="images/txtmelater_tilt.png" height="70%" width="70%">
+    <div class="transparento">
+       <p><h2>For those times when you just don't have<br>the patience to tally up them rally's votes.</h2></p>
+    </div>
+    <br>
+    <p><a class="btn btn-lg btn-success" href="/events/new" role="button">Start Inviting!</a></p>
+  </center>
+</div>
