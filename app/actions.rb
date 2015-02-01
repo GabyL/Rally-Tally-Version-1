@@ -171,6 +171,7 @@ post '/events/confirmation' do # => "send invites" button on pg4.
   true_time = "#{hour}:#{minute} #{am_pm} on #{month} #{pst_time.day}, #{pst_time.year}"
 
   @event.correct_time = true_time
+  @event.save
 
   account_sid = "AC6f371839daf109a9f0faf1fd39e444f9"
   auth_token = "518b385875c00eee24ef68ee70ac67e5"
