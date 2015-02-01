@@ -21,14 +21,19 @@
 
     <form method="post" action="/events/guests">
     
-        <label for="name" class="sr-only">Guest Name</label>
+        <!-- <label for="name" class="sr-only">Guest Name</label> -->
         
         <input type="text" name="name" value="" class="form-control" placeholder="Name" required autofocus>
         
-        <label for="phone" class="sr-only">Guest Number</label>
+        <!-- <label for="phone" class="sr-only">Guest Number</label> -->
         
-        <input type="text" name="phone" value="" class="form-control" placeholder="Phone Number" required autofocus>
+<!--         <input type="text" name="phone" value="" class="form-control" placeholder="Phone Number" required autofocus> -->
+
+        (<input type="text" name="area_code" value="" size="3" placeholder="604" maxlength="3">)&nbsp;
+        <input type="text" name="phone_first" value="" size="3" placeholder="555" maxlength="3">&nbsp;-&nbsp;<input type="text" name="phone_last" value="" size="4" placeholder="5555" maxlength="4">
         
+        <br>
+
         <input type="hidden" name="event_id" value=<%= @event.id %>>
 
         <input class="btn btn-default" type="submit" value="Add Guest">
