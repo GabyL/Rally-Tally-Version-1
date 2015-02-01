@@ -104,3 +104,21 @@
        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
           transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
+
+
+.bot-right {
+  position: relative;
+  bottom: -32px;
+  left: 367px;
+}
+
+.stay-bot {
+  position: relative;
+  bottom: -15px;
+  width: 120px;
+}
+
+
+
+
+
