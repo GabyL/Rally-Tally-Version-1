@@ -21,11 +21,29 @@ get '/events/new' do #   display pg2
 end
 
 post '/events/new' do # => 'continue planning' button on pg2
+  hour = params[:hour].to_i
+  minutes = params[:minutes]
+
+  if params[:am_pm] == "12"
+    hour += 12
+  end
+
+
+  zone = ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
+  pst_time = Time.now.in_time_zone(zone)
+
+
+  year = pst_time.year
+  month = pst_time.month
+  day = pst_time.day
+
+  set_time = "#{year}-#{month}-#{day} #{hour}:#{minutes}:00 -0800"
+
   @event = Event.create(
     # user_id: current_user.id,
     title: params[:title],
     # time: params[:time]
-    time: Time.now
+    time: set_time.to_datetime #
     )
   redirect "/events/#{@event.id}/venues" # => go to pg3
 end
@@ -95,6 +113,50 @@ post '/events/confirmation' do # => "send invites" button on pg4.
   #######Twilio action!!!! Send out invites
   @event = Event.where(id: params[:event_id]).first
 
+  zone = ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
+  pst_time = @event.time.in_time_zone(zone)
+  ptmonth = pst_time.month.to_i
+  month = nil
+
+  case ptmonth
+    when 1
+      month = "January"
+    when 2
+      month = "February"
+    when 3
+      month = "March"
+    when 4
+      month = "April"
+    when 5
+      month = "May"
+    when 6
+      month = "June"
+    when 7
+      month = "July"
+    when 8
+      month = "August"
+    when 9
+      month = "September"
+    when 10
+      month = "October"
+    when 11
+      month = "November"
+    when 12
+      month = "December"
+  end
+
+  pthour = pst_time.hour.to_i
+  am_pm = "AM"
+
+  if pthour > 12
+    hour = pthour-12
+    am_pm = "PM"
+  else
+    hour = pthour
+  end
+
+  true_time = "#{hour}:#{pst_time.min} #{am_pm} PST on #{month} #{pst_time.day}, #{pst_time.year}"
+
   account_sid = "AC6f371839daf109a9f0faf1fd39e444f9"
   auth_token = "518b385875c00eee24ef68ee70ac67e5"
   client = Twilio::REST::Client.new account_sid, auth_token
@@ -106,14 +168,14 @@ post '/events/confirmation' do # => "send invites" button on pg4.
 
   @event.venues.reverse.each do |venue|
     location_count += 1
-    message_body += "#{location_count}) #{venue.name} "
+    message_body += "'#{location_count}' for #{venue.name} "
   end
 
   @event.guests.each do |guest|
     client.account.messages.create(
       :from => from, 
       :to => guest.phone, 
-      :body => "Hey #{guest.name}, you've been invited to #{@event.title}! Please vote for a location: #{message_body}. Select '0' to decline."
+      :body => "Hey #{guest.name}, you've been invited to #{@event.title} at #{true_time}! To vote, select #{message_body}. Reply '0' to decline."
     )
   end
 
