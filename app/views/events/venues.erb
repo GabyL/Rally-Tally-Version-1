@@ -1,39 +1,31 @@
 
 <!--will use a diff class for form later -->
 
-<p>The Event title is: <%= @event.title %></p>
-<p>The Event ID is: <%= @event.id %></p>
+ <div class='transparento boxboxbox'>
+    <div id='move_h1'><br><h1>STEP 2:</h1><br><hr></div>
+    <h2 align="center">Add Venue for <%= @event.title %></h2>
 
-<div class="container-fluid">
-
-  <div class="transparento2 midbox">
-    <h2>Add Venues</h2>
-  <% if @venues != nil %>
+    <% if @venues != nil %>
     <% @venues.each do |venue| %>
       <div class="venuebox">
       <%= venue.name %>
       </div>
     <% end %>
   <% end %>
-  </div>
 
-  <div>
     <form class="form-signin" method="post" action="/events/venues">
       <input type="text" name="name" value="" class="form-control" placeholder="Venue..." required autofocus>
-        <br>
+      <br>
 
       <input type="hidden" name="event_id" value=<%= @event.id %>>
-      <input class="btn btn-lg btn-success" type="submit" value="Add Venue">
+      <input class="btn btn-lg btn-warning" type="submit" value="Add Venue">
       <% if @venues.count > 0 %> 
         <a class="btn btn-lg btn-success stay-right" href="/events/<%= @event.id %>/guests"> Continue</a>
       <% end %>
 
     </form>
-
   </div>
 
 
 
 
-
-</div>
