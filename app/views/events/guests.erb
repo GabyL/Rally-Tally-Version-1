@@ -3,7 +3,7 @@
       <ul class="nav nav-pills pull-right">
     <li role="presentation" class ="<%= active_page('/') %>"><a href="/">Home</a></li>
     <li role="presentation" class ="active"><a href="/events/new">Make Event</a></li>
-    <li role="presentation" class ="<%= active_page('/events/details') %>"><a href="/events/details">Event Status</a></li>
+    <li role="presentation" class ="<%= active_page('/events/details') %>"><a href="/events/<%= session[:event_id] %>">Event Status</a></li>
       </ul>
     </nav>
     <a href="/"><img src="/images/rallytally.png" width="20%" height="20%"></a>
@@ -16,14 +16,12 @@
 
 
 
- <div class='transparento boxboxbox'>
-    <div id='move_h1'><br><h1>STEP 3:</h1><br><hr></div>
-    <h2 align="center">Invite guests to <%= @event.title %></h2>
-
+ <div class='jumbotron transparento boxboxbox'>
+    <div id='move_h1'><br><h1>STEP 3:<br><h2 class="subtitle">Invite Guests</h2></h1><br></div><br>
     <% if @guests != nil %>
       <% @guests.reverse.each do |guest| %>
-        <div class="venuebox">
-        <em><%= guest.name %>:</em> <%= guest.phone %>
+        <div class="guestbox">
+        <%= guest.phone %> - <%= guest.name %>
         </div>
       <% end %>
     <% end %>

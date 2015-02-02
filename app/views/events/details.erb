@@ -3,7 +3,7 @@
       <ul class="nav nav-pills pull-right">
     <li role="presentation" class ="<%= active_page('/') %>"><a href="/">Home</a></li>
     <li role="presentation" class ="active_page('/events/new') %>"><a href="/events/new">Make Event</a></li>
-    <li role="presentation" class ="active"><a href="/events/details">Event Status</a></li>
+    <li role="presentation" class ="active"><a href="/events/<%= session[:event_id] %>">Event Status</a></li>
       </ul>
     </nav>
     <a href="/"><img src="/images/rallytally.png" width="20%" height="20%"></a>
@@ -12,30 +12,43 @@
 
 <!-- Hardcoded Nav-Bar above -->
 
+<% if @event == nil %>
+  <div class="transparento3 boxboxbox">
+  <h2 class='text-mid'>Please create an event first.</h2></div>
 
+<% else %>
 
+<div class = 'transparento boxboxbox relative'>
 
-<h2><em>Event name:</em> <%= @event.title %></h2>
+  <div id='move_h1'><br><h1><%= @event.title %></h1><br></div>
 
-<h2>Venues:</h2>
+    <div class= 'divdiv'>
+      <h2 class="text-mid">Venues:</h2>
 
-<% @event.venues.reverse.each do |venue| %>
-  <div><%= venue.name %></div>
-<% end %>
-
-<h2>Invited guests:</h2>
-
-<% @event.guests.reverse.each do |guest| %>
-  <div><%= guest.name %></div>
-<% end %>
-
-<h2>Current vote totals:</h2>
-
-<% if @venue_counts.count > 0 %>
-  <% @venue_counts.each do |venue_count| %>
-    <div>
-    <%= venue_count[0] %> - <%= venue_count[1] %> votes
+      <% @event.venues.reverse.each do |venue| %>
+        <div class='text-left'><%= venue.name %></div>
+      <% end %>
     </div>
-  <% end %>
-  <div>Declined invitations: <%= @decline_count %></div>
+
+    <div class= 'divdiv2'>
+    <div class= 'text-mid'><h2>Invited guests:</h2></div>
+      <% @event.guests.reverse.each do |guest| %>
+        <div class='text-left'><%= guest.name %></div>
+      <% end %>
+    </div>
+    <div class= 'divdiv3'>
+      <h2 class='text-mid'>Current vote totals:</h2>
+
+      <% if @venue_counts.count > 0 %>
+        <% @venue_counts.each do |venue_count| %>
+          <div class="text-left">
+          <%= venue_count[0] %> - <%= venue_count[1] %> votes
+          </div>
+        <% end %>
+        <div class="text-left">Declined invitations: <%= @decline_count %></div>
+      <% end %>
+    </div>
+</div>
+
 <% end %>
+

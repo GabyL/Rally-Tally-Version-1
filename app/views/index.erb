@@ -3,7 +3,7 @@
       <ul class="nav nav-pills pull-right">
     <li role="presentation" class ="<%= active_page('/') %>"><a href="/">Home</a></li>
     <li role="presentation" class ="<%= active_page('/events/new') %>"><a href="/events/new">Make Event</a></li>
-    <li role="presentation" class ="<%= active_page('/events/details') %>"><a href="/events/details">Event Status</a></li>
+    <li role="presentation" class ="<%= active_page('/events/details') %>"><a href="/events/<%= session[:event_id] %>">Event Status</a></li>
       </ul>
     </nav>
     <a href="/"><img src="/images/rallytally.png" width="20%" height="20%"></a>
@@ -16,7 +16,7 @@
   <center>
     <img src="images/rallytally_title.png" height="70%" width="70%">
     <div class="transparento">
-       <p><h2>For those times when you just don't have<br>the patience to tally up them rally's votes.</h2></p>
+       <p><h2>For those times when you just don't have<br>the patience to tally up them rally's votes.</h2><br></p>
     </div>
     <br>
     <p><a class="btn btn-lg btn-success" href="/events/new" role="button">Start Inviting!</a></p>
