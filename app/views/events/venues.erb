@@ -16,7 +16,7 @@
     <div id='move_h1'><br><h1>STEP 2:<br><h2 class="subtitle">Venue Choices</h2></h1><br></div><br>
 
     <% if @venues != nil %>
-    <% @venues.reverse.each do |venue| %>
+    <% @venues.each do |venue| %>
       <div class="venuebox">
       <ul class="indent_if_newline"><li><%= venue.name %></li></ul>
       </div>

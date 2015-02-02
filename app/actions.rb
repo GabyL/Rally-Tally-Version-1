@@ -67,6 +67,7 @@ get '/events/:event_id/venues' do #|event_id|
   # @event_id = event_id# => display pg3. Will have a link to pg4.
   @event = Event.where(id: params[:event_id]).first
   @venues = Venue.where(event_id: params[:event_id])
+  @venues.sort_by! {|venue| venue.id}
   erb :'/events/venues'
 end
 
@@ -85,6 +86,7 @@ end
 get '/events/:event_id/guests' do # => display pg4. 
   @event = Event.where(id: params[:event_id]).first
   @guests = Guest.where(event_id: params[:event_id])
+  @guests.sort_by! {|guest| guest.id}
   erb :'/events/guests'
 end
 
