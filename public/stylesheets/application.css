@@ -106,6 +106,9 @@
           transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
+#confirmation_button {
+  width: 100px;
+}
 
 .bot-right {
   position: relative;

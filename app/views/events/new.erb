@@ -25,8 +25,9 @@
     <input type="text" name="title" value="" class="form-control" placeholder="Event Name... e.g. Party at Emily's!" require autofocus>
     <br>
     <h2>Event Time</h2>
+
     <div>
-       <select name="hour">
+       <select name="hour" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <option>Hour</option>
           <option name="hour" value="1">1</option>
           <option name="hour" value="2">2</option>
@@ -41,14 +42,14 @@
           <option name="hour" value="11">11</option>
           <option name="hour" value="12">12</option>
        </select>
-       <select name="minutes">
+       <select name="minutes" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <option>Minutes</option>
           <option name="minutes" value="0">00</option>
           <option name="minutes" value="15">15</option>
           <option name="minutes" value="30">30</option>
           <option name="minutes" value="45">45</option>
        </select>
-       <select name="am_pm">
+       <select name="am_pm" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <option name="am_pm" value="0">AM</option>
           <option name="am_pm" value="12">PM</option>
        </select><input class="btn btn-lg btn-success bot-right" type="submit" value="Continue">
