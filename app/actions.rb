@@ -172,7 +172,7 @@ post '/events/confirmation' do # => "send invites" button on pg4.
   if ptminute == 0
     minute = "00"
   else
-    minute == pst_time.min
+    minute = ptminute
   end
 
   true_time = "#{hour}:#{minute} #{am_pm} on #{month} #{pst_time.day}, #{pst_time.year}"
