@@ -17,6 +17,8 @@ end
 #------------------
 
 get '/' do # => display pg1. will link to pg2.
+  # session.clear
+  session[:event_id] ||= 0
   erb :index
 end
 
@@ -52,6 +54,9 @@ post '/events/new' do # => 'continue planning' button on pg2
     # time: params[:time]
     time: set_time.to_datetime #
     )
+
+  session[:event_id] = @event.id
+
   redirect "/events/#{@event.id}/venues" # => go to pg3
 end
 
@@ -208,13 +213,25 @@ get '/events/:event_id' do # => display pg6. Details of event including vote cou
 
   @venue_counts = []
 
-  @event.venues.each do |venue|
-    @venue_counts << [venue.name, venue.votes.count]
+  if params[:event_id].to_i > 0
+
+    @event.venues.each do |venue|
+      @venue_counts << [venue.name, venue.votes.count]
+    end
+
+    @venue_counts.sort_by! { |venue_count| -venue_count[1] }
+
+    @decline_count = Vote.where(event_id: @event.id, venue_id: 0).count
+
+    # session[:event_id] = @event.id
   end
 
-  @venue_counts.sort_by! { |venue_count| -venue_count[1] }
+  # if params[:event_id] == 0
+  #   @event_created = false
+  # elsif session[:event_id] > 0
+  #   @event_created = true
+  # end
 
-  @decline_count = Vote.where(event_id: @event.id, venue_id: 0).count
 
   erb :'events/details'
 end

@@ -3,7 +3,7 @@
       <ul class="nav nav-pills pull-right">
     <li role="presentation" class ="<%= active_page('/') %>"><a href="/">Home</a></li>
     <li role="presentation" class ="active_page('/events/new') %>"><a href="/events/new">Make Event</a></li>
-    <li role="presentation" class ="active"><a href="/events/details">Event Status</a></li>
+    <li role="presentation" class ="active"><a href="/events/<%= session[:event_id] %>">Event Status</a></li>
       </ul>
     </nav>
     <a href="/"><img src="/images/rallytally.png" width="20%" height="20%"></a>
@@ -12,6 +12,10 @@
 
 <!-- Hardcoded Nav-Bar above -->
 
+<% if @event == nil %>
+  <div>Please create an event first.</div>
+
+<% else %>
 
 <div class = 'transparento boxboxbox relative'>
 
@@ -44,3 +48,6 @@
       <% end %>
     </div>
 </div>
+
+<% end %>
+
