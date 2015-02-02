@@ -82,7 +82,7 @@
 
 .nav-pills>li.active>a {
   color: #fff;
-  background-color: #5cb85c;
+  background-color: #21B274;;
   border-color: #4cae4c;
 }
 
@@ -120,11 +120,12 @@
 #confirmation_button {
   width: 100px;
 }
+.jumbotron{
+  position: relative;
+}
 
 .bot-right {
-  position: relative;
-  bottom: -32px;
-  left: 367px;
+  float:right;
 }
 
 .stay-bot {
@@ -183,7 +184,21 @@
 }
 
 
+
 .subtitle {
   font-size: 50;
   color: #606060;
+}
+
+.btn-success{
+  background-color: #21B274;
+}
+
+.btn-warning{
+  background-color: #F25D36;
+}
+
+.btn-warning.active, .btn-warning.focus, .btn-warning:active, .btn-warning:focus, .btn-warning:hover, .open>.dropdown-toggle.btn-warning{
+  background-color: #E72549;
+  border-color: #E72549;
 }
