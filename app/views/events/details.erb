@@ -3,7 +3,7 @@
       <ul class="nav nav-pills pull-right">
     <li role="presentation" class ="<%= active_page('/') %>"><a href="/">Home</a></li>
     <li role="presentation" class ="active_page('/events/new') %>"><a href="/events/new">Make Event</a></li>
-    <li role="presentation" class ="active"><a href="/events/details">Event Status</a></li>
+    <li role="presentation" class ="active"><a href="/events/<%= session[:event_id] %>">Event Status</a></li>
       </ul>
     </nav>
     <a href="/"><img src="/images/rallytally.png" width="20%" height="20%"></a>
@@ -12,30 +12,35 @@
 
 <!-- Hardcoded Nav-Bar above -->
 
+<% if @event == nil %>
 
+  <div>Please create an event first.</div>
 
+<% else %>
 
-<h2><em>Event name:</em> <%= @event.title %></h2>
+  <h2><em>Event name:</em> <%= @event.title %></h2>
 
-<h2>Venues:</h2>
+  <h2>Venues:</h2>
 
-<% @event.venues.reverse.each do |venue| %>
-  <div><%= venue.name %></div>
-<% end %>
-
-<h2>Invited guests:</h2>
-
-<% @event.guests.reverse.each do |guest| %>
-  <div><%= guest.name %></div>
-<% end %>
-
-<h2>Current vote totals:</h2>
-
-<% if @venue_counts.count > 0 %>
-  <% @venue_counts.each do |venue_count| %>
-    <div>
-    <%= venue_count[0] %> - <%= venue_count[1] %> votes
-    </div>
+  <% @event.venues.reverse.each do |venue| %>
+    <div><%= venue.name %></div>
   <% end %>
-  <div>Declined invitations: <%= @decline_count %></div>
+
+  <h2>Invited guests:</h2>
+
+  <% @event.guests.reverse.each do |guest| %>
+    <div><%= guest.name %></div>
+  <% end %>
+
+  <h2>Current vote totals:</h2>
+
+  <% if @venue_counts.count > 0 %>
+    <% @venue_counts.each do |venue_count| %>
+      <div>
+      <%= venue_count[0] %> - <%= venue_count[1] %> votes
+      </div>
+    <% end %>
+    <div>Declined invitations: <%= @decline_count %></div>
+  <% end %>
+
 <% end %>
