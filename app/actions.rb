@@ -162,7 +162,16 @@ post '/events/confirmation' do # => "send invites" button on pg4.
     hour = pthour
   end
 
-  true_time = "#{hour}:#{pst_time.min} #{am_pm} PST on #{month} #{pst_time.day}, #{pst_time.year}"
+  ptminute = pst_time.min
+
+  if ptminute == 0
+    minute = "00"
+  end
+
+  true_time = "#{hour}:#{minute} #{am_pm} on #{month} #{pst_time.day}, #{pst_time.year}"
+
+  @event.correct_time = true_time
+  @event.save
 
   account_sid = "AC6f371839daf109a9f0faf1fd39e444f9"
   auth_token = "518b385875c00eee24ef68ee70ac67e5"
@@ -266,14 +275,14 @@ get '/sms-quickstart' do
   twiml = Twilio::TwiML::Response.new do |r|
     if /\d/.match(body)
       if (body.to_i <= event.venues.count) && (body.to_i != 0)
-        r.Message "Hi, #{guest.name}!. Event id: #{event.id} #{event.title}. You have selected #{@venue.name} from #{from} This has been added to the votes."
+        r.Message "Hi #{guest.name}! You have selected #{@venue.name}. This has been updated in the votes."
       elsif body.to_i == 0
         r.Message "Hi #{guest.name}! We are sad you can't join us. Thanks for the reply!"
       else
-        r.Message "You have selected #{body}. This is not a choice, please select one from the list above."
+        r.Message "You have selected #{body}. This is not a choice, please select a number from the list above."
         end
     else
-      r.Message "please send a number such as '0' to decline the invites"
+      r.Message "Please send a number from the list above or '0' to decline the invitation to #{event.title}."
     end
   end
   twiml.text # => actually sends out text to recipient
