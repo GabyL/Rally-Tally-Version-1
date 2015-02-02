@@ -19,7 +19,7 @@
     <% if @venues != nil %>
     <% @venues.each do |venue| %>
       <div class="venuebox">
-      <li><%= venue.name %></li>
+      <ul class="indent_if_newline"><li><%= venue.name %></li></ul>
       </div>
     <% end %>
   <% end %>
