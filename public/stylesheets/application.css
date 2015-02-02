@@ -141,7 +141,7 @@
 .stay-bot {
   position: relative;
   bottom: -15px;
-  width: 120px;
+  width: 135px;
 }
 
 .divdiv{
@@ -184,7 +184,8 @@
 
 .text-left{
   text-align: left;
-  padding-left: 25px;
+  padding-left: 20px;
+  padding-right: 15px;
   padding-top: 5px;
   font-size: 16px;
 }
