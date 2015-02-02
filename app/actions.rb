@@ -200,7 +200,7 @@ post '/events/confirmation' do # => "send invites" button on pg4.
     client.account.messages.create(
       :from => from, 
       :to => guest.phone, 
-      :body => "Hey #{guest.name}, you've been invited to #{@event.title} at #{true_time}! To vote, select #{message_body}. Reply '0' to decline."
+      :body => "Hey #{guest.name}, you've been invited to #{@event.title} at #{true_time}! To vote, reply #{message_body}. Reply '0' to decline."
     )
   end
 
