@@ -1,4 +1,6 @@
-
+* {
+  color: #666;
+}
 .nav-tabs {
   border-bottom: 1px solid #ddd;
   margin-top: -80px
@@ -6,7 +8,7 @@
 
 .transparento {
   margin: 30px;
-  background-color:rgba(255,255,255,.7);
+  background-color:rgba(255,255,255,.85);
   border-radius: 5px;
   max-width: 700px;
 }
@@ -50,10 +52,19 @@
 }
 
 .venuebox {
-  text-align: center;
+  text-align: left;
+  padding-left: 150px;
+  padding-right: 150px;
   font-size: 20px;
-  opacity: 0.7;
 }
+
+.guestbox {
+  text-align: left;
+  padding-left: 170px;
+  padding-right: 170px;
+  font-size: 20px;
+}
+
 
 
 #jumbo {
@@ -119,7 +130,54 @@
   width: 120px;
 }
 
+.divdiv{
+  width: 200px;
+  height: 400px;
+  background-color:rgba(150,150,150,.2);
+  display: inline-block;
+  position: absolute;
+  top: 150px;
+}
 
+.divdiv2{
+  width: 200px;
+  height: 400px;
+  display: inline-block;
+  background-color:rgba(150,150,150,.2);
+  position: absolute;
+  top: 150px;
+  left: 250px;
+}
+
+.divdiv3{
+  width: 200px;
+  height: 400px;
+  background-color:rgba(150,150,150,.2);
+  display: inline-block;
+  position: absolute;
+  top: 150px;
+  left: 480px;
+}
+
+.relative{
+  position: relative;
+  height: 570px;
+}
+
+.text-mid {
+  text-align: center;
+}
+
+.text-left{
+  text-align: left;
+  padding-left: 25px;
+  padding-top: 5px;
+  font-size: 16px;
+}
+
+.indent_if_newline {
+  list-style-position: outside;
+}
 
 
 

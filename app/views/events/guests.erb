@@ -22,8 +22,8 @@
 
     <% if @guests != nil %>
       <% @guests.each do |guest| %>
-        <div class="venuebox">
-        <em><%= guest.name %>:</em> <%= guest.phone %>
+        <div class="guestbox">
+        <%= guest.phone %> - <%= guest.name %>
         </div>
       <% end %>
     <% end %>
