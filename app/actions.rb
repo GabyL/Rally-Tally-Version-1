@@ -177,11 +177,11 @@ post '/events/confirmation' do
   @event.correct_time = true_time
   @event.save
 
-  account_sid = "AC6f371839daf109a9f0faf1fd39e444f9"
-  auth_token = "518b385875c00eee24ef68ee70ac67e5"
+  account_sid = ENV['SID']
+  auth_token = ENV['TOKEN']
   client = Twilio::REST::Client.new account_sid, auth_token
 
-  from = "+16043371550"
+  from = ENV['NUMBER']
 
   message_body = ""
   location_count = 0

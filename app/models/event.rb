@@ -42,8 +42,8 @@ class Event < ActiveRecord::Base
 
 
   def twilio_send_text(event, winning_venue)
-    account_sid = ENV['SID'] "AC6f371839daf109a9f0faf1fd39e444f9"
-    auth_token = ENV['TOKEN'] "518b385875c00eee24ef68ee70ac67e5"
+    account_sid = ENV['SID']
+    auth_token = ENV['TOKEN']
     client = Twilio::REST::Client.new account_sid, auth_token
 
     from = ENV['NUMBER']
