@@ -236,43 +236,63 @@ end
 
 # takes in text replies, makes them into votes
 get '/sms-quickstart' do
-  binding.pry
   body = params['Body']
   from = params['From']
 
   guest = Guest.where(phone: from).last
   event = Event.find(guest.event_id)
+  # event = Event.where(id: guest.event_id).first
 
   if /\d/.match(body)
     int_reply = body[/\d/].to_i
 
-    venue_id = get_venue_id(int_reply)
+    # venue_id = get_venue_id(int_reply)
 
-    if venue_id != nil
-      create_or_update_vote(venue_id)
-    end
-  end
+    # if venue_id != nil
+    #   create_or_update_vote(venue_id)
+    # end
 
-  def get_venue_id(int_reply)
-    result = int_reply
-    if int_reply > event.venues.count
-      result = nil
-    elsif int_reply > 0
-      int_reply -= 1
-      result = event.venues[int_reply].id
-    end
-    result
-  end
+    if (int_reply <= event.venues.count) && (int_reply != 0)
 
-  def create_or_update_vote(venue_id)
+      venue_index = 0
+      venue_array = []
+
+      event.venues.reverse.each do |venue|
+        venue_index += 1
+        venue_array << [venue, venue_index]
+      end
+
+
+      venue_array.each do |temp_venue|
+        if temp_venue[1] == int_reply
+          @venue = temp_venue[0]
+        end
+      end
+
       existing_vote = Vote.where(event_id: event.id, guest_id: guest.id).first
 
       if existing_vote.nil?
-        Vote.create(event_id: event.id, guest_id: guest.id, venue_id: venue_id)
+        Vote.create(event_id: event.id, guest_id: guest.id, venue_id: @venue.id)
       else
-        existing_vote.venue_id = venue_id
+        existing_vote.venue_id = @venue.id
         existing_vote.save
       end
+
+      create_or_update_vote(@venue.id, event, guest)
+
+    elsif int_reply == 0
+      already_voted = Vote.where(event_id: event.id, guest_id: guest.id).first
+      
+      if already_voted.nil?
+        Vote.create(event_id: event.id, guest_id: guest.id, venue_id: 0)
+      else
+        already_voted.venue_id = 0
+        already_voted.save #### already_voted.save
+      end
+
+      create_or_update_vote(0, event, guest)
+
+    end
   end
 
   twiml = Twilio::TwiML::Response.new do |r|
