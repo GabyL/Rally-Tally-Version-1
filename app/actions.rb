@@ -16,8 +16,8 @@ end
 
 #------------------
 
-get '/' do # => display pg1. will link to pg2.
-  # session.clear
+# get the index page
+get '/' do 
   session[:event_id] ||= 0
   erb :index
 end
@@ -25,11 +25,13 @@ end
 # ----------------------- #
 ### Create new event
 
-get '/events/new' do #   display pg2
+# page to create new event
+get '/events/new' do
   erb :'events/new'
 end
 
-post '/events/new' do # => 'continue planning' button on pg2
+# to create a new event
+post '/events/new' do
   hour = params[:hour].to_i
   minutes = params[:minutes]
 
@@ -49,48 +51,48 @@ post '/events/new' do # => 'continue planning' button on pg2
   set_time = "#{year}-#{month}-#{day} #{hour}:#{minutes}:00 -0800"
 
   @event = Event.create(
-    # user_id: current_user.id,
     title: params[:title],
-    # time: params[:time]
     time: set_time.to_datetime #
-    )
+  )
 
   session[:event_id] = @event.id
 
-  redirect "/events/#{@event.id}/venues" # => go to pg3
+  redirect "/events/#{@event.id}/venues" # go to add venues page
 end
 
 # ----------------------- #
 ### Add venues
 
-get '/events/:event_id/venues' do #|event_id|
-  # @event_id = event_id# => display pg3. Will have a link to pg4.
+# display add venues page
+get '/events/:event_id/venues' do 
   @event = Event.where(id: params[:event_id]).first
   @venues = Venue.where(event_id: params[:event_id])
   @venues.sort_by! {|venue| venue.id}
   erb :'/events/venues'
 end
 
-post '/events/venues' do # => "add venue" button on pg3
+# add a venue
+post '/events/venues' do 
   Venue.create(
     event_id: params[:event_id],
     name: params[:name]
     )
-  # @venues = Venue.where(event_id: params[:event_id])
-  redirect "/events/#{params[:event_id]}/venues" # => refreshes page
+  redirect "/events/#{params[:event_id]}/venues"
 end
 
 # ----------------------- #
 ### Add guests
 
-get '/events/:event_id/guests' do # => display pg4. 
+# display add guests page
+get '/events/:event_id/guests' do  
   @event = Event.where(id: params[:event_id]).first
   @guests = Guest.where(event_id: params[:event_id])
   @guests.sort_by! {|guest| guest.id}
   erb :'/events/guests'
 end
 
-post '/events/guests' do # => "add guest" button on pg4
+# add a guest
+post '/events/guests' do 
   area_code = params[:area_code]
   phone_first = params[:phone_first]
   phone_last = params[:phone_last]
@@ -104,27 +106,20 @@ post '/events/guests' do # => "add guest" button on pg4
       phone: phone_number
       )
   end
-  # @guests = Guest.where(event_id: params[:event_id])
-  redirect "/events/#{params[:event_id]}/guests" # => refreshes page
-
-  # if @guest.save
-  #   redirect '/events/#{params[:event_id]}/guests'
-  # else
-  #   :'/events/guests'
-  # end
-
+  redirect "/events/#{params[:event_id]}/guests"
 end
 
 # ----------------------- #
 ### Go to confirmation
 
-get '/events/:event_id/confirmation' do # => display pg5. Haslink to /events/[:event_id]
+# show confirmation page
+get '/events/:event_id/confirmation' do 
   @event = Event.where(id: params[:event_id]).first
   erb :'events/confirmation'
 end
 
-post '/events/confirmation' do # => "send invites" button on pg4.
-  #######Twilio action!!!! Send out invites
+# Twilio action to send out invites
+post '/events/confirmation' do 
   @event = Event.where(id: params[:event_id]).first
 
   zone = ActiveSupport::TimeZone.new("Pacific Time (US & Canada)")
@@ -191,7 +186,7 @@ post '/events/confirmation' do # => "send invites" button on pg4.
   message_body = ""
   location_count = 0
 
-  @event.venues.reverse.each do |venue|
+  @event.venues.each do |venue|
     location_count += 1
     message_body += "'#{location_count}' for #{venue.name} "
   end
@@ -204,7 +199,7 @@ post '/events/confirmation' do # => "send invites" button on pg4.
     )
   end
 
-  redirect "/events/#{params[:event_id]}/confirmation" # => go to pg5
+  redirect "/events/#{params[:event_id]}/confirmation"
 end
 
 
@@ -212,7 +207,8 @@ end
 # ----------------------- #
 ### Go to event details page
 
-get '/events/:event_id' do # => display pg6. Details of event including vote count.
+# show event details page
+get '/events/:event_id' do
   @event = Event.where(id: params[:event_id]).first
 
   @venue_counts = []
@@ -227,15 +223,7 @@ get '/events/:event_id' do # => display pg6. Details of event including vote cou
 
     @decline_count = Vote.where(event_id: @event.id, venue_id: 0).count
 
-    # session[:event_id] = @event.id
   end
-
-  # if params[:event_id] == 0
-  #   @event_created = false
-  # elsif session[:event_id] > 0
-  #   @event_created = true
-  # end
-
 
   erb :'events/details'
 end
@@ -243,13 +231,14 @@ end
 
 # ----------------------- #
 ### Receive text reply
+
+# takes in text replies, makes them into votes
 get '/sms-quickstart' do
   body = params['Body']
   from = params['From']
 
   guest = Guest.where(phone: from).last
   event = Event.find(guest.event_id)
-  # event = Event.where(id: guest.event_id).first
 
   if /\d/.match(body)
     int_reply = body[/\d/].to_i
@@ -259,48 +248,6 @@ get '/sms-quickstart' do
     if venue_id != nil
       create_or_update_vote(venue_id)
     end
-
-    # if (int_reply <= event.venues.count) && (int_reply != 0)
-
-      # venue_index = 0
-      # venue_array = []
-
-      # event.venues.reverse.each do |venue|
-      #   venue_index += 1
-      #   venue_array << [venue, venue_index]
-      # end
-
-
-      # venue_array.each do |temp_venue|
-      #   if temp_venue[1] == int_reply
-      #     @venue = temp_venue[0]
-      #   end
-      # end
-
-      # existing_vote = Vote.where(event_id: event.id, guest_id: guest.id).first
-
-      # if existing_vote.nil?
-      #   Vote.create(event_id: event.id, guest_id: guest.id, venue_id: @venue.id)
-      # else
-      #   existing_vote.venue_id = @venue.id
-      #   existing_vote.save
-      # end
-
-    #   create_or_update_vote(@venue.id, event, guest)
-
-    # elsif int_reply == 0
-    #   # already_voted = Vote.where(event_id: event.id, guest_id: guest.id).first
-      
-    #   # if already_voted.nil?
-    #   #   Vote.create(event_id: event.id, guest_id: guest.id, venue_id: 0)
-    #   # else
-    #   #   already_voted.venue_id = 0
-    #   #   existing_vote.save #### already_voted.save
-    #   # end
-
-    #   create_or_update_vote(0, event, guest)
-
-    # end
   end
 
   def get_venue_id(int_reply)
