@@ -4,10 +4,11 @@ class Event < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :venues
+  has_many :venues, -> {order("id ASC")}
   has_many :guests
   has_many :votes
 
+  scope :events_without_user, -> {where(user_id: nil)}
 
 
   def self.check_votes
