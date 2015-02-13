@@ -1,4 +1,6 @@
 require 'twilio-ruby'
+require 'dotenv'
+require 'pry'
 
 helpers do
   
@@ -177,11 +179,11 @@ post '/events/confirmation' do
   @event.correct_time = true_time
   @event.save
 
-  account_sid = ENV['SID']
-  auth_token = ENV['TOKEN']
+  account_sid = ENV['TWILIO_SID']
+  auth_token = ENV['TWILIO_TOKEN']
   client = Twilio::REST::Client.new account_sid, auth_token
 
-  from = ENV['NUMBER']
+  from = ENV['TWILIO_NUMBER']
 
   message_body = ""
   location_count = 0
@@ -234,6 +236,7 @@ end
 
 # takes in text replies, makes them into votes
 get '/sms-quickstart' do
+  binding.pry
   body = params['Body']
   from = params['From']
 
