@@ -1,4 +1,5 @@
 require 'twilio-ruby'
+require 'dotenv'
 
 class Event < ActiveRecord::Base
 
@@ -42,11 +43,11 @@ class Event < ActiveRecord::Base
 
 
   def twilio_send_text(event, winning_venue)
-    account_sid = ENV['SID']
-    auth_token = ENV['TOKEN']
+    account_sid = ENV['TWILIO_SID']
+    auth_token = ENV['TWILIO_TOKEN']
     client = Twilio::REST::Client.new account_sid, auth_token
 
-    from = ENV['NUMBER']
+    from = ENV['TWILIO_NUMBER']
 
     message_body = ""
 

@@ -8,10 +8,11 @@ require 'active_support/all'
 require 'sinatra'
 require 'sinatra/activerecord'
 
-# require 'pry'
 
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 APP_NAME = APP_ROOT.basename.to_s
+
+Dotenv.load
 
 # Sinatra configuration
 configure do
@@ -29,3 +30,4 @@ require APP_ROOT.join('config', 'database')
 
 # Load the routes / actions
 require APP_ROOT.join('app', 'actions')
+
