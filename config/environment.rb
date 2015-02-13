@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'bundler/setup'
+require 'dotenv'
 
 require 'active_support/all'
 
