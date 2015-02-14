@@ -1,7 +1,7 @@
 # Rally Tally version 1.0 
 ---
 ##### Rally Tally makes last-minute event organizing fun & easy via text-message voting.
-[(We're deployed!)](http://rallytally.herokuapp.com)
+#####[(We're deployed!)](http://rallytally.herokuapp.com)
 -
 ## About
 - Rally Tally an event organizing app built on Sinatra that utilized the Twilio API.
