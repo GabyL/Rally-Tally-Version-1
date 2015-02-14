@@ -3,10 +3,6 @@ require "sinatra/activerecord/rake"
 require ::File.expand_path('../config/environment', __FILE__)
 
 
-Rake::Task["db:create"].clear
-Rake::Task["db:drop"].clear
-
-
 # below rake tasks are run every 10 minutes via Heroku Scheduler
 desc "check time at 10min intervals"
 task "check:time" do
@@ -18,18 +14,6 @@ task "check:votes" do
   Event.check_votes
 end
 
-
-
-# NOTE: Assumes SQLite3 DB
-desc "create the database"
-task "db:create" do
-  touch 'db/db.sqlite3'
-end
-
-desc "drop the database"
-task "db:drop" do
-  rm_f 'db/db.sqlite3'
-end
 
 desc 'Retrieves the current schema version number'
 task "db:version" do
