@@ -12,6 +12,7 @@ gem 'puma'
 gem 'tux'
 gem 'twilio-ruby'
 gem 'pg'
+gem 'dotenv'
 
 group :development, :test do
   gem 'pry'
