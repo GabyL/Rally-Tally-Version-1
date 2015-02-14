@@ -246,12 +246,6 @@ get '/sms-quickstart' do
   if /\d/.match(body)
     int_reply = body[/\d/].to_i
 
-    # venue_id = get_venue_id(int_reply)
-
-    # if venue_id != nil
-    #   create_or_update_vote(venue_id)
-    # end
-
     if (int_reply <= event.venues.count) && (int_reply != 0)
 
       venue_index = 0

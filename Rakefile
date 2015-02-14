@@ -7,6 +7,7 @@ Rake::Task["db:create"].clear
 Rake::Task["db:drop"].clear
 
 
+# below rake tasks are run every 10 minutes via Heroku Scheduler
 desc "check time at 10min intervals"
 task "check:time" do
   Event.check_time
