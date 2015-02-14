@@ -1,6 +1,5 @@
 require 'twilio-ruby'
 require 'dotenv'
-require 'pry'
 
 helpers do
   
