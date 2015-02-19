@@ -41,7 +41,6 @@ class Event < ActiveRecord::Base
     end
   end
 
-# => dude this is sensitive info... hide that shit
   def twilio_send_text(event, winning_venue)
     account_sid = ENV['TWILIO_SID']
     auth_token = ENV['TWILIO_TOKEN']

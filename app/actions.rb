@@ -233,7 +233,7 @@ end
 # ----------------------- #
 ### Receive text reply
 
-# takes in text replies, makes them into votes
+## takes in text replies, makes them into votes
 get '/sms-quickstart' do
   body = params['Body']
   from = params['From']
@@ -250,7 +250,7 @@ get '/sms-quickstart' do
       venue_index = 0
       venue_array = []
 
-      event.venues.reverse.each do |venue|
+      event.venues.each do |venue|
         venue_index += 1
         venue_array << [venue, venue_index]
       end
@@ -271,8 +271,6 @@ get '/sms-quickstart' do
         existing_vote.save
       end
 
-      create_or_update_vote(@venue.id, event, guest)
-
     elsif int_reply == 0
       already_voted = Vote.where(event_id: event.id, guest_id: guest.id).first
       
@@ -280,10 +278,8 @@ get '/sms-quickstart' do
         Vote.create(event_id: event.id, guest_id: guest.id, venue_id: 0)
       else
         already_voted.venue_id = 0
-        already_voted.save #### already_voted.save
+        already_voted.save
       end
-
-      create_or_update_vote(0, event, guest)
 
     end
   end
@@ -296,14 +292,13 @@ get '/sms-quickstart' do
         r.Message "Hi #{guest.name}! We are sad you can't join us. Thanks for the reply!"
       else
         r.Message "You have selected #{body}. This is not a choice, please select a number from the list above."
-        end
+      end
     else
-      r.Message "Please send a number from the list above or '0' to decline the invitation to #{event.title}."
-    end
-  end
-  twiml.text # => actually sends out text to recipient
+     r.Message "Please send a number from the list above or '0' to decline the invitation to #{event.title}."
+   end
+ end
+   twiml.text # => actually sends out text to recipient
 end
-
 
 
 
