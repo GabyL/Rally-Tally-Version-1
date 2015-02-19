@@ -76,7 +76,7 @@ class Event < ActiveRecord::Base
   #       event.check_winning_venue
   #     end
   #   end
-  end
+  # end
 
   def twilio_send_text(event, winning_venue)
     account_sid = ENV['TWILIO_SID']
