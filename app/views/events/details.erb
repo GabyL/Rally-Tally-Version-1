@@ -25,14 +25,14 @@
     <div class= 'divdiv'>
       <h2 class="text-mid">Venues:</h2>
 
-      <% @event.venues.reverse.each do |venue| %>
+      <% @event.venues.each do |venue| %>
         <div class='text-left'><%= venue.name %></div>
       <% end %>
     </div>
 
     <div class= 'divdiv2'>
     <div class= 'text-mid'><h2>Invited guests:</h2></div>
-      <% @event.guests.reverse.each do |guest| %>
+      <% @event.guests.each do |guest| %>
         <div class='text-left'><%= guest.name %></div>
       <% end %>
     </div>
